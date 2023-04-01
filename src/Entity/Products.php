@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\SlugTrait;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
 {
+    use SlugTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -24,6 +27,9 @@ class Products
 
     #[ORM\Column]
     private ?int $price = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $code = null;
 
     #[ORM\Column]
     private ?int $stock = null;
@@ -43,6 +49,8 @@ class Products
 
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrdersDetails::class)]
     private Collection $ordersDetails;
+
+  
 
     public function __construct()
     {
@@ -195,6 +203,18 @@ class Products
                 $ordersDetail->setProducts(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }
