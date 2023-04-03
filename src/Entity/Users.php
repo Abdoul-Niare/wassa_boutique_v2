@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet e-mail')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-//    use CreatedAtTrait;
+   use CreatedAtTrait;
    
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -55,10 +55,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Orders::class)]
     private Collection $orders;
 
+    // #[ORM\Column]
+    // private ?\DateTimeImmutable $created_at = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        // $this->created_at= new \DateTimeImmutable();
+        $this->created_at= new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -232,6 +235,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    // public function getCreatedAt(): ?\DateTimeImmutable
+    // {
+    //     return $this->created_at;
+    // }
+
+    // public function setCreatedAt(\DateTimeImmutable $created_at): self
+    // {
+    //     $this->created_at = $created_at;
+
+    //     return $this;
+    // }
 
 
 }

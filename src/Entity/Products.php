@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
 use App\Entity\Trait\SlugTrait;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Products
 {
     use SlugTrait;
+    use CreatedAtTrait;
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,9 +36,6 @@ class Products
     #[ORM\Column]
     private ?int $stock = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $added_date = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_date = null;
 
@@ -50,12 +49,16 @@ class Products
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrdersDetails::class)]
     private Collection $ordersDetails;
 
+    // #[ORM\Column]
+    // private ?\DateTimeImmutable $created_at = null;
+
   
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->ordersDetails = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -107,18 +110,6 @@ class Products
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
-
-        return $this;
-    }
-
-    public function getAddedDate(): ?\DateTimeInterface
-    {
-        return $this->added_date;
-    }
-
-    public function setAddedDate(\DateTimeInterface $added_date): self
-    {
-        $this->added_date = $added_date;
 
         return $this;
     }
@@ -218,4 +209,16 @@ class Products
 
         return $this;
     }
+
+    // public function getCreatedAt(): ?\DateTimeImmutable
+    // {
+    //     return $this->created_at;
+    // }
+
+    // public function setCreatedAt(\DateTimeImmutable $created_at): self
+    // {
+    //     $this->created_at = $created_at;
+
+    //     return $this;
+    // }
 }
