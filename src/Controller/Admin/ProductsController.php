@@ -88,7 +88,7 @@ class ProductsController extends AbstractController
     public function edit(Products $product, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         // On vérifie si l'utilisateur peut éditer avec le Voter
-        // $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
+        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
 
         // On divise le prix par 100
         $prix = $product->getPrice() / 100;
