@@ -21,7 +21,7 @@ class Categories
     #[ORM\Column(length: 100)]
     private ?string $name = null;
     
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $categoryOrder;
 
 
