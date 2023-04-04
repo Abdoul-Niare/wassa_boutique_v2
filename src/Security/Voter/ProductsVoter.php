@@ -9,10 +9,12 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProductsVoter extends Voter
-{
+{   
+    // On met des constantes en votant sur EDIT & DELETE.
     const EDIT = 'PRODUCT_EDIT';
     const DELETE = 'PRODUCT_DELETE';
 
+    // Pour avoir l'acces à certaines informations de Roles de la securité, on crée la proprieté privée.
     private $security;
 
     public function __construct(Security $security)
