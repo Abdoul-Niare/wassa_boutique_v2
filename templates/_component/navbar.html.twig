@@ -12,23 +12,29 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 
-			<ul class="navbar-nav">
+			<ul class="navbar-nav ">
 				{% if app.user %}
+					{% if is_granted('ROLE_PRODUCT_ADMIN') %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
+						</li>
+					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link" href="#">Mon compte</a>
+						{# <a class="nav-link" href="{{ path('wassa_admin') }}">MENU ADMIN</a> #}
+					</li>
 					<li class="{{ app.request.get('_route') == 'wassa_products' ? 'nav-item active' : 'nav-item' }}">
 						<a class="nav-link" href="#">Nos produits</a>
 						{# <a class="nav-link" href="{{ path('wassa_products') }}">NOS PRODUITS</a> #}
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">MENU ADMIN</a>
-						{# <a class="nav-link" href="{{ path('wassa_admin') }}">MENU ADMIN</a> #}
-					</li>
 					<li class="{{ app.request.get('_route') == 'wassa_contact' ? 'nav-item active' : 'nav-item' }}">
-						<a class="nav-link" href="#">CONTACT</a>
+						<a class="nav-link" href="#">Contact</a>
 						{# <a class="nav-link" href="{{ path('wassa_contact') }}">CONTACT</a> #}
 					</li>
-					<li class="nav-item">
+					<li
+						class="nav-item">
 						{# <a class="nav-link" href="#">SE DECONNECTER</a> #}
-						<a class="nav-link" href="{{path('app_logout')}}">SE DECONNECTER</a>
+						<a class="nav-link" href="{{path('app_logout')}}">Se deconnecter</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/">PANIER</a>
@@ -39,11 +45,13 @@
 						<a class="nav-link" href="#">Nos produits</a>
 						{# <a class="nav-link" href="{{ path('wassa_products') }}">NOS PRODUITS</a> #}
 					</li>
-					<li class="{{ app.request.get('_route') == 'wassa_promos' ? 'nav-item active' : 'nav-item' }}">
+					<li
+						class="{{ app.request.get('_route') == 'wassa_promos' ? 'nav-item active' : 'nav-item' }}">
 						{# <a class="nav-link" href="#">Se connecter</a> #}
 						<a class="nav-link" href="{{path('app_login')}}">Se connecter</a>
 					</li>
-					<li class="{{ app.request.get('_route') == 'wassa_promos' ? 'nav-item active' : 'nav-item' }}">
+					<li
+						class="{{ app.request.get('_route') == 'wassa_promos' ? 'nav-item active' : 'nav-item' }}">
 						{# <a class="nav-link" href="#">S'inscrire</a> #}
 						<a class="nav-link" href="{{path('app_register')}}">S'inscrire</a>
 					</li>

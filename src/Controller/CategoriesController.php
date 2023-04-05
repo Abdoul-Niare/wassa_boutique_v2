@@ -15,7 +15,7 @@ class CategoriesController extends AbstractController
     #[Route('/{slug}', name: 'list')]
     public function list(Categories $category, ProductsRepository $productsRepository, Request $request): Response
     {
-        //On va chercher le numéro de page dans l'url
+        //On va chercher le numéro de page dans l'url(pagination)
         $page = $request->query->getInt('page', 1);
 
         //On va chercher la liste des produits de la catégorie (Pagination).

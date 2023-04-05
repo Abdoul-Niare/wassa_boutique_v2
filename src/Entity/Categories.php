@@ -21,7 +21,7 @@ class Categories
     #[ORM\Column(length: 100)]
     private ?string $name = null;
     
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer')]
     private $categoryOrder;
 
 
@@ -141,5 +141,11 @@ class Categories
         }
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }
