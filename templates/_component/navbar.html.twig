@@ -23,9 +23,8 @@
 						<a class="nav-link" href="#">Mon compte</a>
 						{# <a class="nav-link" href="{{ path('wassa_admin') }}">MENU ADMIN</a> #}
 					</li>
-					<li class="{{ app.request.get('_route') == 'wassa_products' ? 'nav-item active' : 'nav-item' }}">
-						<a class="nav-link" href="#">Nos produits</a>
-						{# <a class="nav-link" href="{{ path('wassa_products') }}">NOS PRODUITS</a> #}
+					<li class="{{ app.request.get('_route') == 'products_index' ? 'nav-item active' : 'nav-item' }}">
+						<a class="nav-link" href="{{ path('products_index') }}">NOS PRODUITS</a>
 					</li>
 					<li class="{{ app.request.get('_route') == 'wassa_contact' ? 'nav-item active' : 'nav-item' }}">
 						<a class="nav-link" href="#">Contact</a>
@@ -37,12 +36,12 @@
 						<a class="nav-link" href="{{path('app_logout')}}">Se deconnecter</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/">PANIER</a>
+                            <a  class="btn btn-success" href="{{ path('cart_index') }}"><i class="bi bi-cart"></i></a>
 					</li>
 
 				{% else %}
 					<li class="{{ app.request.get('_route') == 'wassa_products' ? 'nav-item active' : 'nav-item' }}">
-						<a class="nav-link" href="#">Nos produits</a>
+						<a class="nav-link" href="{{ path('products_index') }}">Nos produits</a>
 						{# <a class="nav-link" href="{{ path('wassa_products') }}">NOS PRODUITS</a> #}
 					</li>
 					<li
