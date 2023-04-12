@@ -220,6 +220,11 @@ class Products
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     // public function getCreatedAt(): ?\DateTimeImmutable
     // {
     //     return $this->created_at;

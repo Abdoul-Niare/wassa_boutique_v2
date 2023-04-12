@@ -15,7 +15,7 @@
                             <th>Nom</th>
                             <th>Parent</th>
                             <th>Slug</th>
-                            <th>Ordre</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +29,11 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ categorie.slug }}</td>
-                                <td>{{ categorie.categoryOrder }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-success">Modifier</a>
+                                    <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

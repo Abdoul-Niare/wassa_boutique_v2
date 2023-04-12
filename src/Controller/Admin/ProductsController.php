@@ -117,7 +117,9 @@ class ProductsController extends AbstractController
                 $img->setName($fichier);
                 $product->addImage($img);
             }
-            
+            //On gere la date de modification du produit.
+            $date = new \DateTime('@' . strtotime('now'));
+            $product->setUpdatedDate($date);
             
             // On génère le slug
             $slug = $slugger->slug($product->getName());

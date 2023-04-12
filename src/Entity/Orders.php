@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
 use App\Repository\OrdersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OrdersRepository::class)]
 class Orders
 {
+
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -19,8 +23,8 @@ class Orders
     #[ORM\Column(length: 20, unique: true)]
     private ?string $reference = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_order = null;
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    // private ?\DateTimeInterface $date_order = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
@@ -32,6 +36,9 @@ class Orders
     public function __construct()
     {
         $this->ordersDetails = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
+        
+
     }
 
     public function getId(): ?int
@@ -51,17 +58,17 @@ class Orders
         return $this;
     }
 
-    public function getDateOrder(): ?\DateTimeInterface
-    {
-        return $this->date_order;
-    }
+    // public function getDateOrder(): ?\DateTimeInterface
+    // {
+    //     return $this->date_order;
+    // }
 
-    public function setDateOrder(\DateTimeInterface $date_order): self
-    {
-        $this->date_order = $date_order;
+    // public function setDateOrder(\DateTimeInterface $date_order): self
+    // {
+    //     $this->date_order = $date_order;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getUsers(): ?Users
     {

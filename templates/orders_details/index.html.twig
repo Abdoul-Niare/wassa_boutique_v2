@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OrdersDetails index{% endblock %}
+
+{% block body %}
+    <h1>OrdersDetails index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for orders_detail in orders_details %}
+            <tr>
+                <td>{{ orders_detail.quantity }}</td>
+                <td>{{ orders_detail.price }}</td>
+                <td>
+                    <a href="{{ path('app_orders_details_show', {'orders': orders_detail.orders}) }}">show</a>
+                    <a href="{{ path('app_orders_details_edit', {'orders': orders_detail.orders}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_orders_details_new') }}">Create new</a>
+{% endblock %}

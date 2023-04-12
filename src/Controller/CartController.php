@@ -12,25 +12,34 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/cart', name:'cart_')]
 class CartController extends AbstractController
 {
-   
+   private $tva=0.2;
+
     #[Route('/', name:'index')]
     public function index(SessionInterface $session, ProductsRepository $productsRepository)
     {
         $panier = $session->get("panier", []);
+        
 
         // On "fabrique" les données
         $dataPanier = [];
+        $quantitePanier=0;
         $total = 0;
 
         foreach($panier as $id => $quantite){
             $product = $productsRepository->find($id);
             $dataPanier[] = [
                 "produit" => $product,
-                "quantite" => $quantite
-            ];
-            $total += $product->getPrice() * $quantite;
-        }
+                "quantite" => $quantite,
+                'totalHT'=>$total,
+                'taxe'=> round($total*$this->tva,2),
+                'totalTTC'=> round(($total + ($total*$this->tva)),2)
 
+            ];
+            $quantitePanier += $quantite;
+            $total += $product->getPrice() * $quantite;  
+            // return $dataPanier;
+        }
+        
         return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
     }
 
@@ -102,5 +111,5 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute("cart_index");
     }
-
+    
 }

@@ -11,17 +11,19 @@
 		<section class="row">
 			{% for product in products %}
 				<div class="col-3 mb-3">
-					<article class="card h-100">
-						<img src="{{ asset('assets/uploads/products/imageProduit/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
+					<article class="card h-100 pb-0">
+						<h2 class="card-title">{{ product.name }}</h2>
+							<p class="card-text">{{ product.price / 100 }} €</p>
 						<div class="card-body">
-							<h2 class="card-title">{{ product.name }}</h2>
-							<p class="card-text">{{ product.description }}</p>
-							<a href="{{path('products_details', {"slug": product.slug})}}" class="btn btn-primary">Voir les détails</a>
+						<a href="{{path('products_details', {"slug": product.slug})}}">
+							<img src="{{ asset('assets/uploads/products/imageProduit/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
+						</a>
+							
+
 
 							{% if product.stock > 0 %}
-								{# <a href="#" class="btn btn-success">Ajouter au panier</a> #}
-								<a href="{{path("cart_add", {id: product.id})}}" class="btn btn-success">
-									Ajouter au panier
+								<a href="{{path("cart_add", {id: product.id})}}" class="btn btn-success mt-2">
+									<i class="bi bi-cart-plus"></i> Ajouter
 								</a>
 							{% else %}
 								<p class="text-danger">Temporairement en rupture de stock</p>

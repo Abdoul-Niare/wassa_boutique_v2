@@ -40,9 +40,7 @@ class ProductsFormType extends AbstractType
             ->add('stock', options:[
                 'label'=>'Unité en stock'
             ])
-            // ->add('updated_date', options:[
-            //     'label'=>'Date de modification'
-            // ])
+            
              ->add('categories', EntityType::class, [
                 'class'=> Categories::class,
                 'choice_label'=> 'name',

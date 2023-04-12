@@ -236,6 +236,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->firtsname;
+    }
+
     // public function getCreatedAt(): ?\DateTimeImmutable
     // {
     //     return $this->created_at;

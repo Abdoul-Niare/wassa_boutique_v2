@@ -36,7 +36,14 @@
 						<a class="nav-link" href="{{path('app_logout')}}">Se deconnecter</a>
 					</li>
 					<li class="nav-item">
-                            <a  class="btn btn-success" href="{{ path('cart_index') }}"><i class="bi bi-cart"></i></a>
+						<a class="btn" href="{{ path('cart_index') }}">
+							<span>Panier<i class="fas fa-shopping-cart"></i></span class="cart_count"> 
+							{% if app.session.get("panier") %}
+									{# {{app.session.get('dataPanier').quantitePanier}} #}
+							{% else %}
+								
+							{% endif %}</span>
+						</a>
 					</li>
 
 				{% else %}
@@ -53,6 +60,11 @@
 						class="{{ app.request.get('_route') == 'wassa_promos' ? 'nav-item active' : 'nav-item' }}">
 						{# <a class="nav-link" href="#">S'inscrire</a> #}
 						<a class="nav-link" href="{{path('app_register')}}">S'inscrire</a>
+					</li>
+					<li class="nav-item">
+						<a class="btn btn-success" href="{{ path('cart_index') }}">
+							<i class="fas fa-shopping-cart"></i>
+						</a>
 					</li>
 				{% endif %}
 
