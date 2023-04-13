@@ -40,20 +40,23 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $firtsname = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $address = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $address = null;
 
-    #[ORM\Column(length: 5)]
-    private ?string $zipcode = null;
+    // #[ORM\Column(length: 5)]
+    // private ?string $zipcode = null;
 
-    #[ORM\Column(length: 150)]
-    private ?string $city = null;
+    // #[ORM\Column(length: 150)]
+    // private ?string $city = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
-    private ?string $phone = null;
+    // #[ORM\Column(length: 15, nullable: true)]
+    // private ?string $phone = null;
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Orders::class)]
     private Collection $orders;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
+    private Collection $addresses;
 
     // #[ORM\Column]
     // private ?\DateTimeImmutable $created_at = null;
@@ -62,6 +65,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->orders = new ArrayCollection();
         $this->created_at= new \DateTimeImmutable();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,53 +162,53 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
+    // public function getAddress(): ?string
+    // {
+    //     return $this->address;
+    // }
 
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
+    // public function setAddress(string $address): self
+    // {
+    //     $this->address = $address;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getZipcode(): ?string
-    {
-        return $this->zipcode;
-    }
+    // public function getZipcode(): ?string
+    // {
+    //     return $this->zipcode;
+    // }
 
-    public function setZipcode(string $zipcode): self
-    {
-        $this->zipcode = $zipcode;
+    // public function setZipcode(string $zipcode): self
+    // {
+    //     $this->zipcode = $zipcode;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
+    // public function getCity(): ?string
+    // {
+    //     return $this->city;
+    // }
 
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
+    // public function setCity(string $city): self
+    // {
+    //     $this->city = $city;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
+    // public function getPhone(): ?string
+    // {
+    //     return $this->phone;
+    // }
 
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
+    // public function setPhone(?string $phone): self
+    // {
+    //     $this->phone = $phone;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Orders>
@@ -218,6 +222,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->orders->contains($order)) {
             $this->orders->add($order);
+            // $this->orders[] =$order;
             $order->setUsers($this);
         }
 
@@ -252,6 +257,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     //     return $this;
     // }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses->add($address);
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 }

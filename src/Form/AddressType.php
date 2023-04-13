@@ -2,29 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\Orders;
+use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class OrdersType extends AbstractType
+class AddressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {   
-        // $users= $options['users']; 
-
+    {
         $builder
-            ->add('reference')
-            // ->add('created_at')
-            // ->add('users')
+            ->add('fullname')
+            ->add('entreprise')
+            ->add('complement')
+            ->add('ville')
+            ->add('postal')
+            ->add('pays')
+            ->add('telephone')
+            // ->add('user')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Orders::class,
-            'users'=>array()
+            'data_class' => Address::class,
         ]);
     }
 }

@@ -18,8 +18,6 @@ class CartController extends AbstractController
     public function index(SessionInterface $session, ProductsRepository $productsRepository)
     {
         $panier = $session->get("panier", []);
-        
-
         // On "fabrique" les données
         $dataPanier = [];
         $quantitePanier=0;

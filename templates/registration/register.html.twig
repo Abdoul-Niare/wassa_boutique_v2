@@ -16,13 +16,13 @@
                         {{ form_row(registrationForm.email) }}
                     </fieldset>
 
-                    <fieldset class="mb-3">
+                    {# <fieldset class="mb-3">
                         <legend>Mes coordonnées</legend>
                         {{ form_row(registrationForm.address) }}
                         {{ form_row(registrationForm.zipcode) }}
                         {{ form_row(registrationForm.city) }}
                         {{ form_row(registrationForm.phone) }}
-                    </fieldset>
+                    </fieldset> #}
                     {{ form_row(registrationForm.plainPassword, {
                         label: 'Votre Mot de passe'
                     }) }}

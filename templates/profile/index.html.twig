@@ -1,20 +1,89 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello ProfileController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="card" style="width: 65%;margin: auto; background-color: #ECF0F1;">
+		<legend>
+			<h4>Mes informations personnelles</h4>
+		</legend>
+		<!--Card content-->
+		<div class="card-body px-lg-5 pt-0">
+			<fieldset class="block-identite mb-3">
+				<legend>Mon identité</legend>
+                <div class="row">
+                    <div class="col-lg-6">
+                       <div class="card mb-3 mb-lg-0">                            
+                            <div class="card-body">                                 
+                                <div class="btn-group">
+                                    {# <a class="btn btn-success me-2" href="{{path('app_users_edit', {'id': users.id})}}">Modifier</a> #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</fieldset>
+                {% include "_component/_flash.html.twig" %}
+			<fieldset class=" block-coordonne mb-3">
+				<legend>Mes coordonnées</legend>
+             <div class="row">
+              {% if app.user.addresses %}
+                        {% set index = 0%}
+                    {% for address in app.user.addresses %}
+                        {% set index = index +1 %}
+                        <div class="col-lg-6">
+                            <div class="card mb-3 mb-lg-0">
+                                <div class="card-header">
+                                    Votre adresse N°{{ index }}
+                                </div>
+                                <div class="card-body">
+                                    {# <address> {{address.fullname | upper }} <br>
+                                        {# Entreprise: {{address.entreprise}} <br>
+                                        {{address.adresse}} <br>
+                                        {{address.complement}} <br>
+                                        {{address.ville}} <br>
+                                        {{address.postal}} <br>
+                                        Tel: {{address.telephone}} <br>
+                                        {{address.pays}} <br> 
+                                    </address> #}
+                                    <div class="btn-group">
+                                        <a class="btn btn-success me-2" href="{{path('app_address_edit', {'id': address.id})}}">Modifier</a>
+                                        {{ include('address/_delete_form.html.twig') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+              {% endif %}
+                    </div>
+                            <a class="btn btn-primary mt-2" href="{{path('app_address_new')}}">Ajouter une vouvelle adresse</a>
+                    </div>
+            </fieldset>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/abdou/Desktop/wassa_2/wassa_boutique_v2/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/abdou/Desktop/wassa_2/wassa_boutique_v2/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <fieldset class="block-identite mb-3">
+				<legend>Mes commandes </legend>
+                <div class="row">
+                    <div class="col-lg-6">
+                       <div class="card mb-3 mb-lg-0">                            
+                            <div class="card-header">
+                                <h3 class="numero">Numero: 12</h3>
+                            </div>                           
+                            <div class="card-body">                                 
+                                <p class="date" >Date: 12/03/2023</p>
+                                <p class="montant" >Montant: 222 € pour 5 articles</p>
+                                <a class="btn btn-success" href="#">Voir</a>
+                            </div>
+                        </div>
+                       <div class="card mb-3 mb-lg-0">                            
+                            <div class="card-header">
+                                <h3 class="numero">Numero: 13</h3>
+                            </div>                           
+                            <div class="card-body">                                 
+                                <p class="date" >Date: 03/01/2023</p>
+                                <p class="montant" >Montant: 125 €</p>
+                                <a class="btn btn-success" href="#">Voir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</fieldset>
+        </div>     
+    </div>
 {% endblock %}

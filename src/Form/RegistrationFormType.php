@@ -38,30 +38,30 @@ class RegistrationFormType extends AbstractType
             ],
             'label' => 'Prénom'
         ])
-        ->add('address', TextType::class, [
-            'attr' => [
-                'class' => 'form-control'
-            ],
-            'label' => 'Adresse'
-        ])
-        ->add('zipcode', TextType::class, [
-            'attr' => [
-                'class' => 'form-control'
-            ],
-            'label' => 'Code postal'
-        ])
-        ->add('city', TextType::class, [
-            'attr' => [
-                'class' => 'form-control'
-            ],
-            'label' => 'Ville'
-        ])
-        ->add('phone', TextType::class, [
-            'attr' => [
-                'class' => 'form-control'
-            ],
-            'label' => 'Telephone'
-        ])
+        // ->add('address', TextType::class, [
+        //     'attr' => [
+        //         'class' => 'form-control'
+        //     ],
+        //     'label' => 'Adresse'
+        // ])
+        // ->add('zipcode', TextType::class, [
+        //     'attr' => [
+        //         'class' => 'form-control'
+        //     ],
+        //     'label' => 'Code postal'
+        // ])
+        // ->add('city', TextType::class, [
+        //     'attr' => [
+        //         'class' => 'form-control'
+        //     ],
+        //     'label' => 'Ville'
+        // ])
+        // ->add('phone', TextType::class, [
+        //     'attr' => [
+        //         'class' => 'form-control'
+        //     ],
+        //     'label' => 'Telephone'
+        // ])
         ->add('agreeTerms', CheckboxType::class, [
             'mapped' => false,
             'constraints' => [

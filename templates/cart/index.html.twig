@@ -12,7 +12,7 @@
 			</p>
 		</section>
 		<section class="row">
-		 <table class="table ">
+		   <table class="table ">
 				<thead>
 					<tr>
 						<th>Produit</th>
@@ -23,13 +23,14 @@
 					</tr>
 				</thead>
 				<tbody >
+					{# {% if app.session.get('panier') %} #}
 					{% for element in dataPanier %}
-						<tr >
+							<tr >
 
 							<td>
 								<a href="{{path('products_details', {"slug": element.produit.slug})}}">{{ element.produit.name }}</a>
 							</td>
-							<td class="text-reight">{{ element.produit.price /100}}
+							<td class="text-reight">{{ element.produit.price}}
 								€</td>
 							<td>
 								<a href="{{path("cart_remove", {id: element.produit.id})}}" type="button" value="-" class="minus" style="text-decoration: none; color: black; padding-left: 10px">
@@ -64,45 +65,49 @@
 							<td colspan="5" class="text-center">Votre panier est vide</td>
 						</tr>
 					{% endfor %}
+          
+          			{# {% endif %} #}
+          
+					
 				</tbody>
 				<tfoot>
+					<thead>
 
+						<tr>
+							<td colspan="3" class="text-end">Total:</td>
+							<td>{{ total }}
+								€</td>
+							<td>
+								{% if total >0 %}
 
-				<thead>
-
-					<tr>
-						<td colspan="3" class="text-end">Total:</td>
-						<td>{{ total }}
-							€</td>
-						<td>
-							{% if total >0 %}
-
-								<a href="{{path("cart_delete_all")}}" class="btn btn-danger btn-sm">
-									<i class="bi bi-cart-x">
-										Supprimer Votre Panier</i>
-								</a>
-								<a href="#" class="btn-success btn-sm" style="text-decoration:none">
-									<i class="fas fa-shopping-cart"></i>Valider Votre Commande
-								</a>
-							{% endif %}
-						</td>
-					</tr>
-				</thead>
-			{#	<tbody>
-					<tr>
-            <td class="panier-total-label" >Panier SousTotal HT</td>
-            <td  class="panier-total-amount" > €{{dataPanier.totalTTC}} </td>
-					</tr>
-				 	<tr>
-						<td class="panier-total-label" >TVA (20%)</td>
-            <td  class="panier-total-amount" > €{{panier.data.tva}} </td>
-					</tr>
-					<tr>
-						<td class="panier-total-label" >Total TTC</td>
-            <td  class="panier-total-amount" > €{{panier.data.totalTTC}} </td>
-					</tr>
-				</tbody> #}
+									<a href="{{path("cart_delete_all")}}" class="btn btn-danger btn-sm">
+										<i class="bi bi-cart-x">
+											Supprimer Votre Panier</i>
+									</a>
+									<a href={{path("app_orders_index")}} class="btn-success btn-sm" style="text-decoration:none">
+										<i class="fas fa-shopping-cart"></i>Valider Votre Commande
+									</a>
+								{% endif %}
+							</td>
+						</tr>
+					</thead>
+						{#	<tbody>
+								<tr>
+						<td class="panier-total-label" >Panier SousTotal HT</td>
+						<td  class="panier-total-amount" > €{{dataPanier.totalTTC}} </td>
+								</tr>
+								<tr>
+									<td class="panier-total-label" >TVA (20%)</td>
+						<td  class="panier-total-amount" > €{{panier.data.tva}} </td>
+								</tr>
+								<tr>
+									<td class="panier-total-label" >Total TTC</td>
+						<td  class="panier-total-amount" > €{{panier.data.totalTTC}} </td>
+								</tr>
+							</tbody> #}
 			 </tfoot>
 		 </table>
-	</section>
-</main>{% endblock %}
+	    </section>
+    </main>
+
+{% endblock %}
