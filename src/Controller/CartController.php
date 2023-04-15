@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Repository\ProductsRepository;
+use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,16 +14,27 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/cart', name:'cart_')]
 class CartController extends AbstractController
 {
-   private $tva=0.2;
+
+    private $tva=0.2;
+//    protected $panierService;
+
+
+//     public function __construct(PanierService $panierService)
+//     {
+//         $this->panierService = $panierService;
+//     }
 
     #[Route('/', name:'index')]
     public function index(SessionInterface $session, ProductsRepository $productsRepository)
     {
         $panier = $session->get("panier", []);
+        
+
         // On "fabrique" les données
         $dataPanier = [];
         $quantitePanier=0;
         $total = 0;
+        
 
         foreach($panier as $id => $quantite){
             $product = $productsRepository->find($id);
@@ -29,14 +42,19 @@ class CartController extends AbstractController
                 "produit" => $product,
                 "quantite" => $quantite,
                 'totalHT'=>$total,
-                'taxe'=> round($total*$this->tva,2),
-                'totalTTC'=> round(($total + ($total*$this->tva)),2)
-
+                
             ];
             $quantitePanier += $quantite;
-            $total += $product->getPrice() * $quantite;  
+            $total += $product->getPrice() * $quantite; 
+           
             // return $dataPanier;
         }
+        // $dataPanier['data'] = [
+        //     "quantitePanier" => $quantitePanier,
+        //     'taxe'=> round($total*$this->tva,2),
+        //     'totalTTC'=> round(($total + ($total*$this->tva)),2)
+        // ];
+        
         
         return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
     }

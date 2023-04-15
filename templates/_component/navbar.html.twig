@@ -38,11 +38,11 @@
 					<li class="nav-item">
 						<a class="btn" href="{{ path('cart_index') }}">
 							<span>Panier<i class="fas fa-shopping-cart"></i></span class="cart_count"> 
-							{% if app.session.get("panier") %}
-									{# {{app.session.get('dataPanier').quantitePanier}} #}
+							{# {% if app.session.get("panier") %}
+									{{app.session.get('panier').data.quantitePanier}} 
 							{% else %}
 								
-							{% endif %}</span>
+							{% endif %}</span> #}
 						</a>
 					</li>
 
