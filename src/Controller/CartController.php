@@ -16,65 +16,26 @@ class CartController extends AbstractController
 {
 
     private $tva=0.2;
-//    protected $panierService;
+   protected $panierService;
 
-
-//     public function __construct(PanierService $panierService)
-//     {
-//         $this->panierService = $panierService;
-//     }
-
-    #[Route('/', name:'index')]
-    public function index(SessionInterface $session, ProductsRepository $productsRepository)
+    public function __construct(PanierService $panierService)
     {
-        $panier = $session->get("panier", []);
-        
-
-        // On "fabrique" les données
-        $dataPanier = [];
-        $quantitePanier=0;
-        $total = 0;
-        
-
-        foreach($panier as $id => $quantite){
-            $product = $productsRepository->find($id);
-            $dataPanier[] = [
-                "produit" => $product,
-                "quantite" => $quantite,
-                'totalHT'=>$total,
-                
-            ];
-            $quantitePanier += $quantite;
-            $total += $product->getPrice() * $quantite; 
-           
-            // return $dataPanier;
-        }
-        // $dataPanier['data'] = [
-        //     "quantitePanier" => $quantitePanier,
-        //     'taxe'=> round($total*$this->tva,2),
-        //     'totalTTC'=> round(($total + ($total*$this->tva)),2)
-        // ];
-        
-        
-        return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
+        $this->panierService = $panierService;
     }
 
-   
-    #[Route('/add/{id}', name:'add')]
-    public function add(Products $product, SessionInterface $session)
+    #[Route('/', name:'index')]
+    public function index(PanierService $panierService)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-        $id = $product->getId();
+        $fullCart = $panierService->getFullCart();
+        $total = $panierService->getTotal();
 
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }else{
-            $panier[$id] = 1;
-        }
+        return $this->render('cart/index.html.twig', compact("fullCart", "total",));
+    }
 
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
+    #[Route('/add/{id}', name:'add')]
+    public function add($id, PanierService $panierService)
+    {
+        $panierService->add($id);
 
         $this->addFlash('success', 'Produit ajouté dans votre panier');
         return $this->redirectToRoute("cart_index");
@@ -82,41 +43,18 @@ class CartController extends AbstractController
 
      
     #[Route('/remove/{id}', name:'remove')]
-    public function remove(Products $product, SessionInterface $session)
+    public function remove($id, PanierService $panierService)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-        $id = $product->getId();
-
-        if(!empty($panier[$id])){
-            if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
-                unset($panier[$id]);
-            }
-        }
-
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
+       $panierService->remove($id);
 
         return $this->redirectToRoute("cart_index");
     }
 
 
     #[Route('/delete/{id}', name:'delete')]
-    public function delete(Products $product, SessionInterface $session)
+    public function delete($id, PanierService $panierService)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-        $id = $product->getId();
-
-        if(!empty($panier[$id])){
-            unset($panier[$id]);
-        }
-
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
-
+        $panierService->delete($id);
         return $this->redirectToRoute("cart_index");
     }
 

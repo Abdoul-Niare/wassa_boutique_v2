@@ -12,7 +12,7 @@
 			</p>
 		</section>
 		<section class="row">
-		 <table class="table ">
+			<table class="table ">
 				<thead>
 					<tr>
 						<th>Produit</th>
@@ -22,9 +22,9 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody >
-					{% for element in dataPanier %}
-						<tr >
+				<tbody>
+					{% for element in fullCart %}
+						<tr>
 
 							<td>
 								<a href="{{path('products_details', {"slug": element.produit.slug})}}">{{ element.produit.name }}</a>
@@ -65,23 +65,14 @@
 						</tr>
 					{% endfor %}
 				</tbody>
-				<tfoot>
+				<tfoot></tfoot>
 				<thead>
 
 					<tr>
 						<td colspan="3" class="text-end">Total:</td>
 						<td>{{ total }}
 							€</td>
-						{# <td colspan="3" class="text-end">subTotal:</td>
-						<td>{{ panier.data.subTotalHT }}
-							€</td>
-						<td>
-						<td colspan="3" class="text-end">taxe:</td>
-						<td>{{ panier.data.taxe }}
-							€</td>
-						<td>
-						<td colspan="3" class="text-end">totalTTC:</td>
-						<td>{{ panier.data.totalTTC }} €</td> #}
+
 						<td>
 							{% if  (total) >0 %}
 
@@ -96,21 +87,7 @@
 						</td>
 					</tr>
 				</thead>
-			{#	<tbody>
-					<tr>
-            <td class="panier-total-label" >Panier SousTotal HT</td>
-            <td  class="panier-total-amount" > €{{dataPanier.totalTTC}} </td>
-					</tr>
-				 	<tr>
-						<td class="panier-total-label" >TVA (20%)</td>
-            <td  class="panier-total-amount" > €{{panier.data.tva}} </td>
-					</tr>
-					<tr>
-						<td class="panier-total-label" >Total TTC</td>
-            <td  class="panier-total-amount" > €{{panier.data.totalTTC}} </td>
-					</tr>
-				</tbody> #}
-			 </tfoot>
-		 </table>
+			</tfoot>
+		</table>
 	</section>
 </main>{% endblock %}
