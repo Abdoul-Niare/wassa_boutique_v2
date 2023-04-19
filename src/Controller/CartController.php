@@ -28,8 +28,10 @@ class CartController extends AbstractController
     {
         $fullCart = $panierService->getFullCart();
         $total = $panierService->getTotal();
+        $quantitePanier=0;
+       
 
-        return $this->render('cart/index.html.twig', compact("fullCart", "total",));
+        return $this->render('cart/index.html.twig', compact("fullCart", "total", "quantitePanier"));
     }
 
     #[Route('/add/{id}', name:'add')]

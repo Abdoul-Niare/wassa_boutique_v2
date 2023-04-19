@@ -270,6 +270,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->addresses->contains($address)) {
             $this->addresses->add($address);
+            // $this->addresses[] = $address;
             $address->setUser($this);
         }
 

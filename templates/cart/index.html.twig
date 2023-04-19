@@ -25,7 +25,6 @@
 				<tbody>
 					{% for element in fullCart %}
 						<tr>
-
 							<td>
 								<a href="{{path('products_details', {"slug": element.produit.slug})}}">{{ element.produit.name }}</a>
 							</td>
@@ -65,29 +64,50 @@
 						</tr>
 					{% endfor %}
 				</tbody>
-				<tfoot></tfoot>
-				<thead>
+			</table>
+			<tfoot>
 
-					<tr>
-						<td colspan="3" class="text-end">Total:</td>
-						<td>{{ total }}
-							€</td>
+				<div class="row">
+					<div class="col-md-6"></div>
+					<div class="col-md-6">
+						<div class="border p-3 p-md-4">
+							<div class="heading_s1 mb-3">
+								<h6>Panier totaux</h6>
+							</div>
+							<div class="table-response">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td colspan="3" class="text-end">Total:</td>
+											<td>{{ total }}
+												€</td>
 
-						<td>
-							{% if  (total) >0 %}
-
-								<a href="{{path("cart_delete_all")}}" class="btn btn-danger btn-sm">
-									<i class="bi bi-cart-x">
-										Supprimer Votre Panier</i>
-								</a>
-								<a href="#" class="btn-success btn-sm" style="text-decoration:none">
-									<i class="fas fa-shopping-cart"></i>Valider Votre Commande
-								</a>
-							{% endif %}
-						</td>
-					</tr>
-				</thead>
+											<td colspan="3" class="text-end">Nb articles:</td>
+											<td>{{ quantitePanier }}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												{% if  (total) >0 %}
+													<a href="{{path("cart_delete_all")}}" class="btn btn-danger btn-sm">
+														<i class="bi bi-cart-x">
+															Supprimer</i>
+													</a>
+													<a href="{{path('app_checkout')}}" class="btn btn-success btn-sm px-2 " style="text-decoration:none">
+														<i class="fas fa-shopping-cart"></i>
+														Valider
+													</a>
+												{% endif %}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			</tfoot>
-		</table>
-	</section>
-</main>{% endblock %}
+
+		</section>
+	</main>
+{% endblock %}

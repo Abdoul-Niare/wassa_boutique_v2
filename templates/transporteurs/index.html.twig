@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transporteurs liste{% endblock %}
+
+{% block body %}
+    <h1>Liste des transporteurs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NameTransport</th>
+                <th>Description</th>
+                <th>PriceTransport</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transporteur in transporteurs %}
+            <tr>
+                <td>{{ transporteur.id }}</td>
+                <td>{{ transporteur.nameTransport }}</td>
+                <td>{{ transporteur.description }}</td>
+                <td>{{ transporteur.priceTransport }}</td>
+                <td>{{ transporteur.createdAt ? transporteur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_transporteurs_show', {'id': transporteur.id}) }}">show</a>
+                    <a href="{{ path('app_transporteurs_edit', {'id': transporteur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_transporteurs_new') }}">Create new</a>
+{% endblock %}

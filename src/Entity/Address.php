@@ -138,4 +138,19 @@ class Address
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $result = $this->fullname."[spr]"; // je concatène
+        if ($this->getEntreprise()) {
+           $result.="Entrprise : ".$this->entreprise."spr";
+        }
+        $result .= $this->fullname."spr";
+        $result .= $this->complement."spr";
+        $result .= $this->postal."-" .$this->ville. "spr";
+        $result .= $this->pays."spr";
+
+        return $result;
+
+    }
 }

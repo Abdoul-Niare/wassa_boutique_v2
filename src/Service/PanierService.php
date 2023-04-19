@@ -40,7 +40,6 @@ class PanierService
          // On récupère le panier actuel
          $panier = $this->requestStack->getSession()->get("panier", []);
          
- 
          if(!empty($panier[$id])){
              if($panier[$id] > 1){
                  $panier[$id]--;
@@ -48,7 +47,6 @@ class PanierService
                  unset($panier[$id]);
              }
          }
- 
          // On sauvegarde dans la session
          $this->requestStack->getSession()->set("panier", $panier);
 
@@ -77,13 +75,17 @@ class PanierService
 
         // On "fabrique" les données
         $fullCart = [];
+        $quantitePanier=0;
 
         foreach ($panier as $id => $quantite) {
             $product = $this->productsRepository->find($id);
             $fullCart[] = [
                 "produit" => $product,
                 "quantite" => $quantite,
+                "quantitePanier"=> $quantitePanier,
             ];
+
+            // $quantitePanier += $quantite;
         }
         return $fullCart;
     }
@@ -91,9 +93,11 @@ class PanierService
     public function getTotal(): float
     {
         $total = 0;
+        // $quantitePanier = 0;
 
         foreach ($this->getFullCart() as $item) {
             $total += $item['produit']->getPrice() / 100 * $item['quantite'];
+            // $quantitePanier += $item['quantite'];
         }
         return $total;
     }

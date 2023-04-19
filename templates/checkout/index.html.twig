@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation du panier!
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<h2 class="text-center mb-5">Recapitulatif De Votre Panier</h2>
+
+		{{form_start(checkout)}}
+
+		<section class="row">
+			<div class="col-6">
+				<div class="heading_s1">
+					<h4>Vos adresses de livraison</h4>
+					<div class="content p-2" style=" border: solid 1px; border-color: blue;">
+						{{ form_widget(checkout.address) | replace({'[spr]' : '<br>'}) | raw}}
+					</div>
+
+					<a href="{{path('app_address_new')}}" class=" btn btn-primary m-3">
+						Nouvelle Adresse</a>
+
+				</div>
+				<div class="heading_s1">
+					<h4 class="my-3">Transporteurs prestataires</h4>
+					<div class="content p-2" style=" border: solid 1px; border-color: blue;">
+						{{ form_widget(checkout.transporteurs) | replace({'[spr]' : '<br>' }) | raw }}
+					</div>
+				</div>
+				<div class="heading_s1">
+					<h4 class="my-3">Information supplement pour le livreur</h4>
+					<div class="form-group-mb-0">
+						{{ form_widget(checkout.informations)}}
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="order_review">
+					<div class="heading_s1">
+						<h4>Votre Commande</h4>
+					</div>
+					<div class="table-responsive order_table">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Produits</th>
+									<th>Prix U.</th>
+									<th>Quantité</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for element in panier %}
+									<tr>
+										<td>{{ element.produit.name }}</td>
+										<td>€
+											{{ element.produit.price /100}}</td>
+										<td>
+											{{ element.quantite}}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>Total
+									</th>
+									<th>€
+										{{total}}</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<div class="payement_method">
+						<div class="heading_s1">
+							<h4>
+								Mode de payement
+							</h4>
+						</div>
+					</div>
+					<button type="submit" class=" btn btn-success">
+						Passer Commande
+					</button>
+				</div>
+			</div>
+		</section>
+
+		{{form_end(checkout)}}
+
+	</div>
+{% endblock %}
