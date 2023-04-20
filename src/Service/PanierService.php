@@ -79,7 +79,7 @@ class PanierService
 
         foreach ($panier as $id => $quantite) {
             $product = $this->productsRepository->find($id);
-            $fullCart[] = [
+            $fullCart['produit'] = [
                 "produit" => $product,
                 "quantite" => $quantite,
                 "quantitePanier"=> $quantitePanier,

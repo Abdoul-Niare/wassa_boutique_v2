@@ -54,6 +54,17 @@ class CategoriesController extends AbstractController
     }
 
 
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Categories $categorie, CategoriesRepository $categoriesRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
+            $categoriesRepository->remove($categorie, true);
+        }
+
+          return $this->redirectToRoute('admin_categories_index', [], Response::HTTP_SEE_OTHER);
+}
+
+
     // #[Route('/ajout', name: 'add', methods: ['GET', 'POST'])]
     // public function ajoutCategorie(Request $request, Categories $categories, CategoriesRepository $categoriesRepository): Response
     // {

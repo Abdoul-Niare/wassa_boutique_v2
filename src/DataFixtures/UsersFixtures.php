@@ -26,10 +26,7 @@ class UsersFixtures extends Fixture
         $admin->setEmail('abdou@wassa.fr');
         $admin->setLastname('Niare');
         $admin->setFirtsname('Abdou');
-        $admin->setAddress('04 rue de Toulouse');
-        $admin->setZipcode('31400');
-        $admin->setCity('Toulouse');
-        $admin->setPhone('0033706050403');
+        $admin->getAddresses('04 rue de Toulouse');
         $admin->setPassword(
             $this->passwordEncoder->hashPassword($admin, 'admin')
         );
@@ -42,10 +39,7 @@ class UsersFixtures extends Fixture
             $user->setEmail($faker->email);
             $user->setLastname($faker->lastName);
             $user->setFirtsname($faker->firstName);
-            $user->setAddress($faker->streetAddress);
-            $user->setZipcode(str_replace(' ', '', $faker->postcode));
-            $user->setCity($faker->city);
-            $user->setPhone($faker->phoneNumber);
+            $user->getAddresses($faker->streetAddress);
             $user->setPassword(
                 $this->passwordEncoder->hashPassword($user, 'secret')
             );
