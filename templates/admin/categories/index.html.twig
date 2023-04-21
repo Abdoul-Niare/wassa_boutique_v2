@@ -1,45 +1,46 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Liste des catégories{% endblock %}
+{% block title %}Liste des catégories
+{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            {% include "_component/_adminnav.html.twig" %}
-            <main class="col-9 border border-light bg-white p-2">
-                <h1>Liste des catégories</h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Parent</th>
-                            <th>Slug</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for categorie in categories %}
-                            <tr>
-                                <td>{{ categorie.id }}</td>
-                                <td>{{ categorie.name }}</td>
-                                <td>
-                                    {% if categorie.parent is not null %}
-                                        {{ categorie.parent.name }}
-                                    {% endif %}
-                                </td>
-                                <td>{{ categorie.slug }}</td>
-                                <td>
-                                    <a href="#" class="btn btn-success">Modifier</a>
-                                    <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-									{# {{ include('admin/categories/_delete_form.html.twig') }} #}
+	<div class="container">
+		<div class="row">
+			{% include "_component/_adminnav.html.twig" %}
+			<main class="col-9 border border-light bg-white p-2">
+				<h1>Liste des catégories</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nom</th>
+							<th>Parent</th>
+							<th>Slug</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for categorie in categories %}
+							<tr>
+								<td>{{ categorie.id }}</td>
+								<td>{{ categorie.name }}</td>
+								<td>
+									{% if categorie.parent is not null %}
+										{{ categorie.parent.name }}
+									{% endif %}
+								</td>
+								<td>{{ categorie.slug }}</td>
+								<td class="d-flex">
+									<a href="{{ path('admin_categories_show', {'id': categorie.id}) }}" class="btn btn-primary" >show</a>
+									<a href="{{ path('admin_categories_edit', {'id': categorie.id}) }}" class="btn btn-success mx-2">Modifier</a>
+									{{ include('admin/categories/_delete_form.html.twig') }}
 
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </main>
-        </div>
-    </div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</main>
+		</div>
+	</div>
 {% endblock %}

@@ -4,5 +4,7 @@
     {# {{ form_row(form.slug) }} #}
     {{ form_row(form.parent) }}
 
-    <button type="submit" class="btn btn-primary mt-2">{{ button_label|default('Ajouter') }}</button>
+    <button type="submit" class="btn btn-primary mt-2">{{ button_label|default('Valider') }}</button>
+    <a href="{{ path('admin_categories_index') }}" class="btn btn-success mt-2" >Annuler</a>
+
 {{ form_end(form) }}

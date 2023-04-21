@@ -8,7 +8,7 @@
              {% include "_component/_adminnav.html.twig" %}
             <div class="col-9">
                 <h1>Ajouter une Categorie</h1>
-                {% include "admin/categories/_form.html.twig" %}
+                {{ include ("admin/categories/_form.html.twig", {'button_label': 'Ajouter'})}}
             </div>
         </section>
     </main>

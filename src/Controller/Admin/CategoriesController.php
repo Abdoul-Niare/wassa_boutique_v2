@@ -53,6 +53,33 @@ class CategoriesController extends AbstractController
             
     }
 
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(Categories $category): Response
+    {
+        return $this->render('admin/categories/show.html.twig', [
+            'category' => $category,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Categories $categorie, CategoriesRepository $categoriesRepository): Response
+    {
+        $form = $this->createForm(CategoriesFormType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoriesRepository->save($categorie, true);
+
+            return $this->redirectToRoute('admin_categories_index');
+        }
+
+        return $this->render('admin/categories/edit.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Categories $categorie, CategoriesRepository $categoriesRepository): Response

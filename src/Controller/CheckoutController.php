@@ -26,7 +26,7 @@ class CheckoutController extends AbstractController
     public function index(Request $request,  RequestStack $requestStack): Response
     {
         
-        // on applle l'utilisateur connecté.
+        // on appelle l'utilisateur connecté.
         $user = $this->getUser();
         // on recupere le Panier.
         $panier= $this->panierService->getFullCart();

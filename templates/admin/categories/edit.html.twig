@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Categories
+{% endblock %}
+
+{% block body %}
+
+	<main class="container">
+		<section class="row">
+			{% include "_component/_adminnav.html.twig" %}
+			<div class="col-9">
+				<h1>Edit Categories</h1>
+
+				{{ include('admin/categories/_form.html.twig') }}
+
+								
+               {# {{ include('admin/categories/_delete_form.html.twig') }} #}
+
+			</div>
+		</section>
+	</main>
+{% endblock %}
